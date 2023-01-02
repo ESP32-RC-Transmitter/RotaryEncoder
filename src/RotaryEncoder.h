@@ -36,7 +36,7 @@ public:
   };
 
   // ----- Constructor -----
-  RotaryEncoder(int pin1, int pin2, LatchMode mode = LatchMode::FOUR0);
+  RotaryEncoder(int pin1, int pin2, LatchMode mode = LatchMode::FOUR0, bool enableInputPullUp = true, bool enableDigitalRead = true);
 
   // retrieve the current position
   long getPosition();
@@ -48,7 +48,7 @@ public:
   void setPosition(long newPosition);
 
   // call this function every some milliseconds or by using an interrupt for handling state changes of the rotary encoder.
-  void tick(int sig1, int sig2);
+  void tick(bool overwriteSig = false, int sig1 = 0, int sig2 = 0);
 
   // Returns the time in milliseconds between the current observed
   unsigned long getMillisBetweenRotations() const;
@@ -58,7 +58,7 @@ public:
 
 private:
   int _pin1, _pin2; // Arduino pins used for the encoder.
-  
+
   LatchMode _mode; // Latch mode from initialization
 
   volatile int8_t _oldState;
