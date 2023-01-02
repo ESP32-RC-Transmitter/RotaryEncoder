@@ -32,7 +32,7 @@ public:
   enum class LatchMode {
     FOUR3 = 1, // 4 steps, Latch at position 3 only (compatible to older versions)
     FOUR0 = 2, // 4 steps, Latch at position 0 (reverse wirings)
-    TWO03 = 3  // 2 steps, Latch at position 0 and 3 
+    TWO03 = 3  // 2 steps, Latch at position 0 and 3
   };
 
   // ----- Constructor -----
@@ -48,7 +48,7 @@ public:
   void setPosition(long newPosition);
 
   // call this function every some milliseconds or by using an interrupt for handling state changes of the rotary encoder.
-  void tick(void);
+  void tick(int sig1, int sig2);
 
   // Returns the time in milliseconds between the current observed
   unsigned long getMillisBetweenRotations() const;

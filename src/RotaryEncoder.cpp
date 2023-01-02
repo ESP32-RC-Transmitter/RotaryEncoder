@@ -45,13 +45,9 @@ RotaryEncoder::RotaryEncoder(int pin1, int pin2, LatchMode mode)
   _pin2 = pin2;
   _mode = mode;
 
-  // Setup the input pins and turn on pullup resistor
-  pinMode(pin1, INPUT_PULLUP);
-  pinMode(pin2, INPUT_PULLUP);
-
   // when not started in motion, the current state of the encoder should be 3
-  int sig1 = digitalRead(_pin1);
-  int sig2 = digitalRead(_pin2);
+  int sig1 = _pin1;
+  int sig2 = _pin2;
   _oldState = sig1 | (sig2 << 1);
 
   // start with position 0;
@@ -108,10 +104,8 @@ void RotaryEncoder::setPosition(long newPosition)
 } // setPosition()
 
 
-void RotaryEncoder::tick(void)
+void RotaryEncoder::tick(int sig1, int sig2)
 {
-  int sig1 = digitalRead(_pin1);
-  int sig2 = digitalRead(_pin2);
   int8_t thisState = sig1 | (sig2 << 1);
 
   if (_oldState != thisState) {
